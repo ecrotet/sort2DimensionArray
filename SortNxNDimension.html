@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Sort your nxn table</title>
+</head>
+<body>
+	<script type="text/javascript">
+	//Declaration
+
+		// Function to get a random number
+		function getRandomInt (max) {
+			return Math.floor(Math.random() * Math.floor(max)) + 1;
+		}
+
+		// Dimension
+		let n;
+		// Selection of the dimension
+		do {
+			n = Number(prompt('Entrez la dimension de la table n x n :')) ;
+		} while ((isNaN(n))||(n === 0));
+
+		// Multi-dimension table
+			// First dimension
+			let tableToSort = new Array(n);
+			let tableSortedLines = new Array(n);
+			let tableSorted = new Array(n);
+			// Second dimension
+			for (var i = 0; i < tableToSort.length; i++) {
+				tableToSort[i] = new Array(n);
+				tableSortedLines[i] = new Array(n);
+				tableSorted[i] = new Array(n);
+			}
+
+		// Filling the table with random number - Method 1
+		// let bufferInsert = 0;
+		// for (var i = 0; i < tableToSort.length; i++) {
+		// 	for (var j = 0; j < tableToSort.length; j++) {
+		// 		tableToSort[i][j] = getRandomInt(n*n);				
+		// 	}	
+		// }
+
+		// Filling the table with unique random number - Method 2
+		let arr = new Array();
+		let bufferNumber = 0;
+
+		// Getting a non-organized list of unique number from 1 to n
+		while(arr.length < n*n){
+			let r = getRandomInt(n*n);
+			if(arr.indexOf(r) === -1) arr.push(r);
+		}
+
+		// Inserting the number into the table to sort
+		for (var i = 0; i < tableToSort.length; i++) {
+			for (var j = 0; j < tableToSort.length; j++) {
+				tableToSort[i][j] = arr[bufferNumber];
+				bufferNumber++;
+			}
+		}
+
+		// Buffer table to sort the whole table
+		let bufferTable = Array();
+		
+
+		// Display
+		document.write('La table avant changement : <br/><br/>');
+		document.write(tableToSort.join('<br/>'));
+		document.write('<br/>');
+		document.write('<br/>');
+
+	//Treatment
+		// Sorting the number of each lines
+		tableSortedLines = tableToSort;
+		for (var i = 0; i < tableSortedLines.length; i++) {	 	
+			tableSortedLines[i].sort(function(a,b) {return a - b});
+		}
+
+		// Display
+		document.write('La table après tri sur les lignes : <br/><br/>');
+		document.write(tableSortedLines.join('<br/>'));
+		document.write('<br/>');
+		document.write('<br/>');
+
+		// Sorting the number in the array
+		// All the numbers are stored in an 1-dimension array
+		for (var i = 0; i < tableToSort.length; i++) {
+			for (var j = 0; j < tableToSort.length; j++) {
+				bufferTable.push(tableToSort[i][j]);
+			}
+		}
+
+		// The array is sorted
+		bufferTable.sort(function(a, b) {return a - b});
+
+		// Re-initializing the variable bufferNumber
+		bufferNumber = 0;
+		// The numbers are inserted in a 2-dimension array
+		for (var i = 0; i < tableSorted.length; i++) {
+			for (var j = 0; j < tableSorted.length; j++) {
+				tableSorted[i][j] = bufferTable[bufferNumber];
+				bufferNumber++;
+			}
+		}
+
+	// Display
+	document.write('La table après tri sur l\'ensemble de la table : <br/><br/>');
+	document.write(tableSorted.join('<br/>'));
+	document.write('<br/>');
+	document.write('<br/>');
+
+</script>
+
+</body>
+</html>
